@@ -59,11 +59,10 @@ class Rover {
      })
      }
 
-     if(!)
-
-
-
-
+     if(!cmdType.includes(obj.results[i].commandType)){
+       
+        res.push({completed:false})
+       }
   }
   
  

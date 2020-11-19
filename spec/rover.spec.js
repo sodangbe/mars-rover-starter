@@ -29,7 +29,7 @@ describe("Rover class", function() {
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
+    
     //console.log(response.results[1].commandType);
     assert.strictEqual(response.results.length,commands.length);    
   });
@@ -39,7 +39,7 @@ describe("Rover class", function() {
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
+   
     //console.log(response);
 
     assert.strictEqual(typeof commands[1].getCommandValue(),'undefined');
@@ -51,7 +51,7 @@ describe("Rover class", function() {
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
+  
     //console.log(response);
 
     assert.strictEqual(commands[0].getCommandValue(),'LOW_POWER');
@@ -63,7 +63,7 @@ describe("Rover class", function() {
     let message = new Message('Test message with Three commands', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
+    
     //console.log(response.results[1].roverStatus);
 
     assert.strictEqual(commands[0].getCommandValue(),'LOW_POWER');
@@ -71,14 +71,14 @@ describe("Rover class", function() {
   });
 
   it("responds with position for move command", function(){
-    let commands = [new Command('MOVE', 25833)];
+    let commands = [new Command('MOVE', 523674)];
     let message = new Message('Test message with one command', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
+    
     //console.log(response.results[0].roverStatus);
 
-    assert.strictEqual(commands[0].getCommandValue(),25833);
+    assert.strictEqual(commands[0].getCommandValue(),523674);
        
   });
 
@@ -88,8 +88,8 @@ describe("Rover class", function() {
     let message = new Message('Test message with one command', commands);
     let rover = new Rover(98382);    // Passes 98382 as the rover's position.
     let response = rover.receiveMessage(message);
-    //console.log(commands.length);
-    //console.log(response.results[0].roverStatus);
+  
+    //console.log(response);
 
     assert.strictEqual(typeof commands[0].getCommandValue(),'undefined');
        
