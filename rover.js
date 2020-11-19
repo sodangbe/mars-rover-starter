@@ -7,46 +7,72 @@ class Rover {
    
     this.mode = 'NORMAL';
     this.generatorWatts = 110;
+    
   }
   
+  getMode(){
+
+    return this.mode
+  }
   receiveMessage(message){
 
     let obj = message.getMessage();
     let numberOfCommands = obj.results.length;
+    let cmdType = ['MODE_CHANGE','MOVE','STATUS_CHECK']
     let res =[]
+    //console.log(numberOfCommands);
+   // console.log(obj);
+    /*console.log(obj.results[0].getCommandValue());*/
     
-    for(let i=0;i<numberOfCommands;i++){
+    for(let i=0;i <numberOfCommands;i++){
 
-    if (obj.results[i].commandType === 'STATUS_CHECK'){
    
-     res.push({completed: true,
-               roverStatus: { mode: obj.results[i].getCommandValue(), generatorWatts:this.generatorWatts, position: this.position}
-     })
-
-    }else if((obj.results[i].commandType === 'MODE_CHANGE')){
+ 
+     if((obj.results[i].commandType === cmdType[0])){
              
              this.mode = obj.results[i].getCommandValue()
+             
               res.push({completed: true})
-    }else if((obj.results[i].commandType === 'MOVE')){
-     
-           res.push({completed: (obj.results[i].getCommandValue() === 'LOW_POWER')? false : true })
+    }
+    
+    if((obj.results[i].commandType === cmdType[1])){
+
+           let status = true
+           
+           if (this.mode === 'LOW_POWER'){
+               status = false;
+               
+           }else{
+             this.position = obj.results[i].getCommandValue()
+           }
+
+           res.push({completed: status,
+                    roverStatus: { mode: this.mode , generatorWatts:this.generatorWatts, position: this.position} })
 
     }
+
+     if (obj.results[i].commandType === cmdType[2]){
+    
+    //this.mode = obj.results[i].getCommandValue();
+     res.push({completed: true,
+               roverStatus: { mode: this.mode , generatorWatts:this.generatorWatts, position: this.position}
+     })
+     }
+
+     if(!)
+
+
+
+
   }
   
+ 
   let roverObj = {
 
       message : obj.message,
       results :res
-     /* results:[ {
-         completed: true
-      },
-      {
-         completed: true,
-         roverStatus: { mode: obj.results[0].getCommandValue(), generatorWatts:this.generatorWatts, position: this.position }
-      }]*/
    }
-     //cmdReceived.push(obj.results[i].commandType);
+  
     return roverObj
   }
 
