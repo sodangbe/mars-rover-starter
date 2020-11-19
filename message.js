@@ -13,18 +13,14 @@ class Message  {
    let object = {
 
       message : this.name,
-      commands : this.commands
+      results : this.commands
    }
    
    return object;
 
   }
-
-
  
 }
-
-//console.log(new Message('romeo' ,[1,2]).receiveMessage());
 
 module.exports = Message;
 

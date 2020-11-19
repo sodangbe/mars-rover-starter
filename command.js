@@ -6,16 +6,14 @@ class Command {
    }
     this.value = value;
   }
- 
- getCommand(cmd){
 
-   if(!cmd === 'STATUS_CHECK'){
+
+  getCommandValue(){
+
+  return this.value;
   
-  return this.value ;
-   }
- }
+  }
 }
-
 
 
 module.exports = Command;
