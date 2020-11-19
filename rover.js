@@ -13,34 +13,51 @@ class Rover {
 
     let obj = message.getMessage();
     let numberOfCommands = obj.results.length;
+    let res =[]
     
+    for(let i=0;i<numberOfCommands;i++){
 
-    let roverObj = {
+    if (obj.results[i].commandType === 'STATUS_CHECK'){
+   
+     res.push({completed: true,
+               roverStatus: { mode: obj.results[i].getCommandValue(), generatorWatts:this.generatorWatts, position: this.position}
+     })
+
+    }else if((obj.results[i].commandType === 'MODE_CHANGE')){
+             
+             this.mode = obj.results[i].getCommandValue()
+              res.push({completed: true})
+    }else if((obj.results[i].commandType === 'MOVE')){
+     
+           res.push({completed: (obj.results[i].getCommandValue() === 'LOW_POWER')? false : true })
+
+    }
+  }
+  
+  let roverObj = {
 
       message : obj.message,
-      results:[ {
+      results :res
+     /* results:[ {
          completed: true
       },
       {
          completed: true,
          roverStatus: { mode: obj.results[0].getCommandValue(), generatorWatts:this.generatorWatts, position: this.position }
-      }]
+      }]*/
    }
      //cmdReceived.push(obj.results[i].commandType);
-    return obj
+    return roverObj
   }
 
-
-  convert(arr){
-
-   
-
-  }
- 
- }
-
+}
  module.exports = Rover;
 
+   // console.log(obj.results[i].getCommandValue())
+     //console.log(obj.results[i].commandType)
+    
+  
+    //build the rover object
 
     //let [name]= Object.keys(message)
     //let results = Object.keys(message)[1];
